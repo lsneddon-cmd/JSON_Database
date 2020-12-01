@@ -17,18 +17,19 @@ public class Database {
     }
 
     public String handleInput(String[] commands) throws Exception {
-        if (commands[0].equalsIgnoreCase("exit")) {
+        Command command = Command.valueOf(commands[0].toUpperCase());
+        if (command == Command.EXIT) {
             System.exit(0);
         }
         if (indexOutOfBounds(Integer.parseInt(commands[1]))) {
             throw new Exception("ERROR");
         }
-        switch (commands[0]) {
-            case "get":
+        switch (command) {
+            case GET:
                 return get(Integer.parseInt(commands[1]));
-            case "set":
+            case SET:
                 return set(Integer.parseInt(commands[1]), buildString(commands));
-            case "delete":
+            case DELETE:
                 return delete(Integer.parseInt(commands[1]));
             default:
                 throw new Exception("ERROR");
