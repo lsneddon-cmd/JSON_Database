@@ -7,9 +7,6 @@ public class Database {
 
     private Database() {
         cells = new String[100];
-        for (String cell : cells) {
-            cell = "";
-        }
     }
 
     public static Database getInstance() {
@@ -19,31 +16,27 @@ public class Database {
         return instance;
     }
 
-    public String handleInput(String[] commands) {
+    public String handleInput(String[] commands) throws Exception {
         if (commands[0].equalsIgnoreCase("exit")) {
             System.exit(0);
         }
         if (indexOutOfBounds(Integer.parseInt(commands[1]))) {
-            return "ERROR";
+            throw new Exception("ERROR");
         }
         switch (commands[0]) {
             case "get":
-                try {
-                    return get(Integer.parseInt(commands[1]));
-                } catch (Exception e) {
-                    return "ERROR";
-                }
+                return get(Integer.parseInt(commands[1]));
             case "set":
                 return set(Integer.parseInt(commands[1]), buildString(commands));
             case "delete":
                 return delete(Integer.parseInt(commands[1]));
             default:
-                return "ERROR";
+                throw new Exception("ERROR");
         }
     }
 
     private String get(int index) throws Exception {
-        if (cells[index - 1].equals("") || cells[index - 1] == null) {
+        if (cells[index - 1] == null) {
             throw new Exception("ERROR");
         }
         return cells[index - 1];
@@ -55,7 +48,7 @@ public class Database {
     }
 
     private String delete(int index) {
-        cells[index - 1] = "";
+        cells[index - 1] = null;
         return "OK";
     }
 

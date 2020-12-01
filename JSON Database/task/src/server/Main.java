@@ -10,7 +10,11 @@ public class Main {
         String input;
         while (true) {
             input = scanner.nextLine();
-            System.out.println(database.handleInput(input.split(" ")));
+            try {
+                System.out.println(database.handleInput(input.split(" ")));
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
         }
     }
 }
